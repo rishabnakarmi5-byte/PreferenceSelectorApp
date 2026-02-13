@@ -30,7 +30,7 @@ export const Finale: React.FC = () => {
            </p>
            
            <p className="text-slate-700 leading-relaxed mb-4">
-             We've come a long way from Grindr hookups and fighting over Dota lanes. We\'ve built a home, shared a tiny bed, and supported each other through everything.
+             We've come a long way. We've built a home, shared a tiny bed, and supported each other through everything.
            </p>
            
            <p className="text-slate-700 leading-relaxed mb-6">

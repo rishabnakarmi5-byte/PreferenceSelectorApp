@@ -12,8 +12,8 @@ const INTRO_TEXTS = [
   { text: "Two asian gays who studied in different universities but lived together didn't speak each other's language...", style: "animate-in slide-in-from-left duration-1000 text-blue-200" },
   { text: "But somehow were able to f*ck a million times...", style: "animate-pulse text-red-500 font-bold text-4xl md:text-6xl font-comic tracking-widest" },
   { text: "And cuddle to sleep naked and fall in love very deep <3...", style: "animate-drama-zoom text-pink-300 font-romantic" },
-  { text: "Until.............. they saw a muscle bottom in Grindr..........", style: "animate-glitch text-green-400 font-mono" },
-  { text: "......................then they f*cked the muscle bottom together as well. Then they banged many more together on and on <3.", style: "animate-stamp text-purple-400 font-black" },
+  { text: "Until.............. they saw an a hot muscular guy in Grindr..........", style: "animate-glitch text-green-400 font-mono" },
+  { text: "......................then they f*cked the guy together as well. Then they banged many more together on and on <3.", style: "animate-stamp text-purple-400 font-black" },
   { text: "Love, love and more love presents", style: "animate-spin-in text-white italic" },
   { text: "The Ultimate Valentine TEST!", style: "animate-heartbeat text-red-600 font-black text-6xl md:text-8xl drop-shadow-[0_0_25px_rgba(255,0,0,1)]" }
 ];
@@ -118,21 +118,25 @@ export const DisguiseStage: React.FC<DisguiseStageProps> = ({ question, onAnswer
   };
 
   const handleChoice = (option: typeof question.options[0]) => {
+    // Always show modal first for feedback
+    setModalContent({
+      show: true,
+      text: option.response || "Interesting choice...",
+      isCorrect: option.isCorrect
+    });
+
     // Check if this is the specific trigger question (Big Pecs option)
     if (question.id === 'd3' && option.isCorrect) {
-      triggerCinematicSequence();
-    } else {
-      // Normal flow
-      setModalContent({
-        show: true,
-        text: option.response || "Interesting choice...",
-        isCorrect: option.isCorrect
-      });
+      // Delay the cinematic sequence to allow reading the response
+      setTimeout(() => {
+        setModalContent(null); // Close modal programmatically
+        triggerCinematicSequence();
+      }, 4000); // 4 seconds delay
     }
   };
 
   const triggerCinematicSequence = () => {
-    // START AUDIO IMMEDIATELY ON USER INTERACTION
+    // START AUDIO IMMEDIATELY ON USER INTERACTION (after the delay)
     if (introAudioRef.current) {
         introAudioRef.current.currentTime = 0;
         introAudioRef.current.play()
@@ -153,6 +157,9 @@ export const DisguiseStage: React.FC<DisguiseStageProps> = ({ question, onAnswer
   };
 
   const closeModal = () => {
+    // If it's the trigger question and correct, ignore manual close (it's handled by timeout)
+    if (question.id === 'd3' && modalContent?.isCorrect) return;
+
     if (modalContent?.isCorrect) {
       setModalContent(null);
       setTimeout(() => {
@@ -255,9 +262,17 @@ export const DisguiseStage: React.FC<DisguiseStageProps> = ({ question, onAnswer
             </p>
             <button 
               onClick={closeModal}
-              className="w-full py-4 bg-slate-900 text-white rounded-xl font-bold tracking-wide hover:bg-slate-800 transition-colors"
+              disabled={question.id === 'd3' && modalContent.isCorrect}
+              className={`w-full py-4 rounded-xl font-bold tracking-wide transition-colors ${
+                  question.id === 'd3' && modalContent.isCorrect 
+                    ? 'bg-slate-700 text-slate-300 cursor-wait' 
+                    : 'bg-slate-900 text-white hover:bg-slate-800'
+              }`}
             >
-              {modalContent.isCorrect ? 'CONTINUE' : 'TRY AGAIN'}
+              {question.id === 'd3' && modalContent.isCorrect 
+                ? 'INITIALIZING SEQUENCE...' 
+                : (modalContent.isCorrect ? 'CONTINUE' : 'TRY AGAIN')
+              }
             </button>
           </div>
         </div>

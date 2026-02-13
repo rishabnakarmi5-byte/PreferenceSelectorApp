@@ -157,7 +157,9 @@ export const LotusGame: React.FC<LotusGameProps> = ({ onComplete }) => {
     >
         {/* Header / HUD */}
         <div className="absolute top-0 left-0 w-full z-20 bg-white/90 backdrop-blur-sm p-4 shadow-sm border-b border-slate-200">
-            <h2 className="text-center font-black text-slate-800 text-xl mb-2">SHOPPING SPREE</h2>
+            <h2 className="text-center font-black text-slate-800 text-lg md:text-xl mb-2 leading-tight uppercase">
+                COLLECT GROCERIES (WHETHER YOU LIKE IT OR NOT) FOR RISHAB'S CHICKEN CURRY
+            </h2>
             <div className="flex justify-center gap-1 flex-wrap">
                 {ITEMS_TO_COLLECT.map(item => (
                     <div 
