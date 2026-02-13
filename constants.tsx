@@ -57,7 +57,7 @@ export const DISGUISE_QUESTIONS: Question[] = [
         id: 'b', 
         text: 'Big Big guy, big guy, big, big guy, big guy SpongeBob, big guy pants, okay', 
         isCorrect: true, 
-        response: 'System Alert: HORNY LEVELS CRITICAL. Disguise Protocol Failing... Initializing Valentine Sequence...' 
+        response: 'System Alert: True nature of the app disguise Protocol Failing... Initializing Valentine Sequence...' 
       },
     ],
   },
@@ -124,7 +124,7 @@ export const RELATIONSHIP_QUESTIONS: Question[] = [
         id: 'a', 
         text: 'I\'m gonna eat a lot of momo today', 
         isCorrect: true, 
-        response: 'Yes! but FALSE. Put your don\'t put your phone away. I will bite you in public!.' 
+        response: 'Yes! but if you don\'t put your phone away. I will bite you in public!.' 
       },
       { 
         id: 'b', 

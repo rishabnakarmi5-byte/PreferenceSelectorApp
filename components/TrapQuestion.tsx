@@ -28,7 +28,7 @@ export const TrapQuestion: React.FC<TrapQuestionProps> = ({ onComplete }) => {
       if (id === 'A') {
         setHint("Oh, are you sure? Just a boyfriend? If you really love him, treat him like the bottom bear doll he is! (Choose both!)");
       } else {
-        setHint("Rude! He provides for you! He has feelings! (Choose both!)");
+        setHint("He has feelings! (Choose both!)");
       }
     } else {
         // Both will be selected now

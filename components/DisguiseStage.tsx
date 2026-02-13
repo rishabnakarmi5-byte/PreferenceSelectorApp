@@ -12,8 +12,8 @@ const INTRO_TEXTS = [
   { text: "Two asian gays who studied in different universities but lived together didn't speak each other's language...", style: "animate-in slide-in-from-left duration-1000 text-blue-200" },
   { text: "But somehow were able to f*ck a million times...", style: "animate-pulse text-red-500 font-bold text-4xl md:text-6xl font-comic tracking-widest" },
   { text: "And cuddle to sleep naked and fall in love very deep <3...", style: "animate-drama-zoom text-pink-300 font-romantic" },
-  { text: "Until.............. they saw an a hot muscular guy in Grindr..........", style: "animate-glitch text-green-400 font-mono" },
-  { text: "......................then they f*cked the guy together as well. Then they banged many more together on and on <3.", style: "animate-stamp text-purple-400 font-black" },
+  { text: "Until.............. they saw a very hot muscular guy in Grindr..........", style: "animate-glitch text-green-400 font-mono" },
+  { text: "......................then they f*cked the guy together as well.", style: "animate-stamp text-purple-400 font-black" },
   { text: "Love, love and more love presents", style: "animate-spin-in text-white italic" },
   { text: "The Ultimate Valentine TEST!", style: "animate-heartbeat text-red-600 font-black text-6xl md:text-8xl drop-shadow-[0_0_25px_rgba(255,0,0,1)]" }
 ];
