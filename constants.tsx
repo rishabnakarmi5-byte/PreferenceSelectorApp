@@ -27,7 +27,7 @@ export const DISGUISE_QUESTIONS: Question[] = [
     options: [
       { 
         id: 'a', 
-        text: 'Bland Porridge & Water', 
+        text: 'Thai food with coriander', 
         isCorrect: false, 
         response: 'Access Denied. Your tongue would stage a protest. Try again.' 
       },
@@ -55,7 +55,7 @@ export const DISGUISE_QUESTIONS: Question[] = [
       },
       { 
         id: 'b', 
-        text: 'Big Pecs & Muscular Bottoms', 
+        text: 'Big Big guy, big guy, big, big guy, big guy SpongeBob, big guy pants, okay', 
         isCorrect: true, 
         response: 'System Alert: HORNY LEVELS CRITICAL. Disguise Protocol Failing... Initializing Valentine Sequence...' 
       },
@@ -82,15 +82,15 @@ export const RELATIONSHIP_QUESTIONS: Question[] = [
       },
       { 
         id: 'b', 
-        text: 'Grindr (You wanted to f*ck a big bottom, didn\'t ya?)', 
+        text: 'Grindr', 
         isCorrect: true, 
-        response: 'Bingo! Came for the booty, stayed for the beauty.' 
+        response: 'Came for the booty, stayed for the beauty!' 
       },
     ],
   },
   {
     id: 'r2',
-    text: 'Ah, the AIT days. Where did we live for a long time?',
+    text: 'Ah, the AIT days. How did we live for a long time?',
     timeoutSeconds: 12,
     // Converted to direct link
     image: 'https://i.imgur.com/kegTJyH.jpg', 
@@ -113,7 +113,7 @@ export const RELATIONSHIP_QUESTIONS: Question[] = [
   },
   {
     id: 'r3',
-    text: 'When we go to Suko Teenoi, what is Rishab thinking about while you eat beef?',
+    text: 'When we go to Suko Teenoi, what is Rishab thinking?',
     timeoutSeconds: 20,
     // Converted to direct link
     image: 'https://i.imgur.com/Hp8tCVg.jpg', 
@@ -122,13 +122,13 @@ export const RELATIONSHIP_QUESTIONS: Question[] = [
     options: [
       { 
         id: 'a', 
-        text: 'Chicken Gyoza & Nepal Buff Momo nostalgia', 
+        text: 'I\'m gonna eat a lot of momo today', 
         isCorrect: true, 
-        response: 'Yes! While you devour the ocean, I miss my momos.' 
+        response: 'Yes! but FALSE. Put your don\'t put your phone away. I will bite you in public!.' 
       },
       { 
         id: 'b', 
-        text: 'How much he loves watching you be on your phone', 
+        text: 'How handsome my baby is', 
         isCorrect: false, 
         response: 'FALSE. Put the phone away, mister, or I will bite you in public!' 
       },
@@ -159,7 +159,7 @@ export const RELATIONSHIP_QUESTIONS: Question[] = [
   },
   {
     id: 'r5',
-    text: 'Where is our favorite place to escape reality (besides the bedroom)?',
+    text: 'Where is my favorite place besides our room?',
     timeoutSeconds: 15,
     // Converted to direct link
     image: 'https://i.imgur.com/cVT1sGG.jpg', 
@@ -168,15 +168,15 @@ export const RELATIONSHIP_QUESTIONS: Question[] = [
     options: [
       { 
         id: 'a', 
-        text: 'The Movie Theatre', 
+        text: 'Major', 
         isCorrect: true, 
-        response: 'Popcorn, dark room, and holding hands.' 
+        response: 'Dark room, COKE!, holding hands and sleeping :D.' 
       },
       { 
         id: 'b', 
-        text: 'The Library (Again?)', 
+        text: 'Anywhere outdoors', 
         isCorrect: false, 
-        response: 'Stop trying to make us look academic.' 
+        response: 'LOL. I know you just wanted to see what would happen if you selected this option XD' 
       },
     ],
   },

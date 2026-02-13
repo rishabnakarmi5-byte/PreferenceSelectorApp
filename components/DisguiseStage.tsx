@@ -4,17 +4,18 @@ import { Question } from '../types';
 interface DisguiseStageProps {
   question: Question;
   onAnswer: (isCorrect: boolean, response?: string) => void;
+  onStartMainMusic: () => void;
 }
 
 const INTRO_TEXTS = [
   { text: "Once upon a time, in the magical country of Thailand...", style: "animate-drama-zoom text-yellow-100 font-serif" },
   { text: "Two asian gays who studied in different universities but lived together didn't speak each other's language...", style: "animate-in slide-in-from-left duration-1000 text-blue-200" },
-  { text: "But somehow were able to f*ck a million times...", style: "animate-pulse text-red-500 font-bold text-6xl font-comic tracking-widest" },
+  { text: "But somehow were able to f*ck a million times...", style: "animate-pulse text-red-500 font-bold text-4xl md:text-6xl font-comic tracking-widest" },
   { text: "And cuddle to sleep naked and fall in love very deep <3...", style: "animate-drama-zoom text-pink-300 font-romantic" },
   { text: "Until.............. they saw a muscle bottom in Grindr..........", style: "animate-glitch text-green-400 font-mono" },
-  { text: "......................then they f*cked the muscle bottom together as well. Then they fucked many muscle bottoms together on and on.", style: "animate-stamp text-purple-400 font-black" },
+  { text: "......................then they f*cked the muscle bottom together as well. Then they banged many more together on and on <3.", style: "animate-stamp text-purple-400 font-black" },
   { text: "Love, love and more love presents", style: "animate-spin-in text-white italic" },
-  { text: "The Ultimate Valentine TEST!", style: "animate-heartbeat text-red-600 font-black text-8xl drop-shadow-[0_0_25px_rgba(255,0,0,1)]" }
+  { text: "The Ultimate Valentine TEST!", style: "animate-heartbeat text-red-600 font-black text-6xl md:text-8xl drop-shadow-[0_0_25px_rgba(255,0,0,1)]" }
 ];
 
 // 48 Seconds total timing breakdown
@@ -29,25 +30,25 @@ const TIMINGS = [
   6000  // TITLE
 ];
 
-export const DisguiseStage: React.FC<DisguiseStageProps> = ({ question, onAnswer }) => {
+export const DisguiseStage: React.FC<DisguiseStageProps> = ({ question, onAnswer, onStartMainMusic }) => {
   const [modalContent, setModalContent] = useState<{ show: boolean, text: string, isCorrect: boolean } | null>(null);
   const [introStep, setIntroStep] = useState(-1); // -1: normal, 0-7: playing intro
   const [displayedText, setDisplayedText] = useState("");
   const completionTriggered = useRef(false);
   
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const introAudioRef = useRef<HTMLAudioElement | null>(null);
 
   // Preload audio but don't play yet
   useEffect(() => {
     const audio = new Audio('https://audio.jukehost.co.uk/fwYwroiS04dGaE7ETsQoWTh0b4jwkfNH');
     audio.preload = "auto";
     audio.volume = 1.0;
-    audioRef.current = audio;
+    introAudioRef.current = audio;
 
     return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current = null;
+      if (introAudioRef.current) {
+        introAudioRef.current.pause();
+        introAudioRef.current = null;
       }
     };
   }, []);
@@ -87,25 +88,34 @@ export const DisguiseStage: React.FC<DisguiseStageProps> = ({ question, onAnswer
 
     } else if (introStep >= INTRO_TEXTS.length && !completionTriggered.current) {
        // Sequence finished
-       completionTriggered.current = true; // Prevent double firing
+       finishIntroSequence();
+    }
+  }, [introStep]);
+
+  const finishIntroSequence = () => {
+       if (completionTriggered.current) return;
+       completionTriggered.current = true;
        
-       if (audioRef.current) {
+       // Fade out intro music
+       if (introAudioRef.current) {
          const fadeOut = setInterval(() => {
-             if (audioRef.current && audioRef.current.volume > 0.1) {
-                 audioRef.current.volume -= 0.1;
+             if (introAudioRef.current && introAudioRef.current.volume > 0.1) {
+                 introAudioRef.current.volume -= 0.1;
              } else {
                  clearInterval(fadeOut);
-                 audioRef.current?.pause();
+                 introAudioRef.current?.pause();
              }
          }, 200);
        }
+
+       // Start main music
+       onStartMainMusic();
        
        // Small delay to ensure render is clean before unmounting
        setTimeout(() => {
            onAnswer(true, "Welcome to the game");
-       }, 100);
-    }
-  }, [introStep, onAnswer]);
+       }, 500);
+  };
 
   const handleChoice = (option: typeof question.options[0]) => {
     // Check if this is the specific trigger question (Big Pecs option)
@@ -123,9 +133,9 @@ export const DisguiseStage: React.FC<DisguiseStageProps> = ({ question, onAnswer
 
   const triggerCinematicSequence = () => {
     // START AUDIO IMMEDIATELY ON USER INTERACTION
-    if (audioRef.current) {
-        audioRef.current.currentTime = 0;
-        audioRef.current.play()
+    if (introAudioRef.current) {
+        introAudioRef.current.currentTime = 0;
+        introAudioRef.current.play()
             .then(() => console.log("Audio started successfully"))
             .catch(e => console.error("Audio play failed:", e));
     }
@@ -133,7 +143,13 @@ export const DisguiseStage: React.FC<DisguiseStageProps> = ({ question, onAnswer
   };
   
   const skipIntro = () => {
-      setIntroStep(INTRO_TEXTS.length);
+      // Immediately stop audio
+      if (introAudioRef.current) {
+        introAudioRef.current.pause();
+      }
+      onStartMainMusic();
+      completionTriggered.current = true;
+      onAnswer(true, "Welcome to the game");
   };
 
   const closeModal = () => {
@@ -155,7 +171,7 @@ export const DisguiseStage: React.FC<DisguiseStageProps> = ({ question, onAnswer
     }
 
     return (
-      <div className="fixed inset-0 bg-black z-50 flex flex-col items-center justify-center p-8 text-center overflow-hidden">
+      <div className="fixed inset-0 bg-black z-50 flex flex-col items-center justify-center p-6 text-center overflow-hidden">
         {/* Starfield / Cinematic Background */}
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20 animate-pulse"></div>
         
@@ -167,8 +183,8 @@ export const DisguiseStage: React.FC<DisguiseStageProps> = ({ question, onAnswer
             Skip Intro
         </button>
         
-        <div key={introStep} className="z-10 w-full max-w-5xl flex items-center justify-center min-h-[50vh]">
-           <p className={`leading-relaxed drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] text-4xl md:text-6xl
+        <div key={introStep} className="z-10 w-full max-w-5xl flex items-center justify-center min-h-[60vh] px-4">
+           <p className={`leading-snug drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] text-3xl md:text-5xl whitespace-normal break-words w-full
              ${INTRO_TEXTS[introStep].style}
            `}>
              {displayedText}

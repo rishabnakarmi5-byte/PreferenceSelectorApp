@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { AppStage, GameState } from './types';
 import { DISGUISE_QUESTIONS, RELATIONSHIP_QUESTIONS } from './constants';
 import { DisguiseStage } from './components/DisguiseStage';
@@ -16,6 +16,15 @@ const App: React.FC = () => {
     currentQuestionIndex: 0,
     isThreatActive: false,
   });
+
+  const mainMusicRef = useRef<HTMLAudioElement>(null);
+
+  const startMainMusic = () => {
+    if (mainMusicRef.current) {
+      mainMusicRef.current.volume = 0.5;
+      mainMusicRef.current.play().catch(e => console.log("Audio autoplay prevented:", e));
+    }
+  };
 
   const handleDisguiseAnswer = (isCorrect: boolean, response?: string) => {
     if (gameState.currentQuestionIndex < DISGUISE_QUESTIONS.length - 1) {
@@ -88,7 +97,8 @@ const App: React.FC = () => {
         if (!disguiseQ) return <div className="p-10 text-center">Loading Disguise Protocol...</div>;
         return <DisguiseStage 
             question={disguiseQ} 
-            onAnswer={handleDisguiseAnswer} 
+            onAnswer={handleDisguiseAnswer}
+            onStartMainMusic={startMainMusic} 
         />;
       
       case AppStage.RELATIONSHIP_QUIZ:
@@ -123,6 +133,11 @@ const App: React.FC = () => {
 
   return (
     <div className="font-sans antialiased text-slate-900 bg-white min-h-[100dvh]">
+      <audio 
+        ref={mainMusicRef} 
+        src="https://audio.jukehost.co.uk/mz9AwrPkSxg37qDysWCVziPV1K96TpBX" 
+        loop 
+      />
       {renderStage()}
     </div>
   );
