@@ -34,7 +34,7 @@ export const Finale: React.FC = () => {
            </p>
            
            <p className="text-slate-700 leading-relaxed mb-6">
-             Even though I'm in Nepal and you're in Thailand right now, we are always with each other. I love you, I want you to be mine forever. I hope I can be the big chest muscle bear you deserve forever.
+             Even though I'm in Nepal and you're in Thailand right now, we are always with each other. I love you, I want you to be mine forever, and I yours. (Also, I promise to gain and maintain my pecs that you always deserve from me :* )
            </p>
 
            <div className="mt-8 pt-8 border-t border-pink-200 text-center">
@@ -42,7 +42,7 @@ export const Finale: React.FC = () => {
                I love you.
              </p>
              <p className="text-xs text-slate-400 mt-4 tracking-widest uppercase">
-                Happy Valentine's Day 2025
+                Happy Valentine's Day 2026
              </p>
            </div>
         </div>
